@@ -31,7 +31,7 @@ class Net_two_spiral(nn.Module):
         x = self.layer2(x)
         x = torch.relu(x)
         x = self.layer3(x)
-        return torch.sigmoid(x)
+        return x
 
 
 class fcModel(nn.Module):

@@ -43,9 +43,9 @@ def data_two_spiral_generate(totalnum = 2000):
     print("X:", X.size())
     print("Y:", Y.size())
     class_1_x = []
-    # plt.scatter(X.cpu()[:999][:,0],X.cpu()[:999][:,1],color='b',marker='.')
-    # plt.scatter(X.cpu()[1000:][:,0],X.cpu()[1000:][:,1],color='g',marker='.')
-    # plt.show()
+    plt.scatter(X.cpu()[:999][:,0],X.cpu()[:999][:,1],color='b',marker='.')
+    plt.scatter(X.cpu()[1000:][:,0],X.cpu()[1000:][:,1],color='g',marker='.')
+    plt.show()
     return X,Y
 
 
