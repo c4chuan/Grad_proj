@@ -54,4 +54,4 @@ def Illustrate_train(epoch):
     plt.show()
 
 # 解释性实验1训练
-Illustrate_train(10000)
+Illustrate_train(100000)
