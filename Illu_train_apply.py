@@ -8,7 +8,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 import torch.utils.data.dataloader
-
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
 torch.manual_seed(seed=2024)
@@ -83,6 +82,14 @@ def sparsify_model_dict(model, coors):
 
 
 def Illustrate_train_apply(theta, s):
+    # 定义数据存储目录
+    result_path = './figures/Illu/'
+    sp_path = result_path + f'theta={theta}_s={s}'
+    if not os.path.exists(result_path):
+        os.mkdir(result_path)
+    if not os.path.exists(sp_path):
+        os.mkdir(sp_path)
+    s = int(s * 650)
 
     # 设置device
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -110,32 +117,33 @@ def Illustrate_train_apply(theta, s):
     his_dis = []
 
     # 开始训练模型
-    while(True):
-        # 首先记录上一时刻模型的参数w_0
+    with open(sp_path+'/result.txt','w') as file:
+        while(True):
+            y_pred = model(x)
 
-        y_pred = model(x)
+            loss = criterion(y_pred,y)
+            loss.backward()
+            optimizer.step()
+            optimizer.zero_grad()
 
-        loss = criterion(y_pred,y)
-        loss.backward()
-        optimizer.step()
-        optimizer.zero_grad()
+            # 梯度更新后对模型进行稀疏优化
 
-        # 梯度更新后对模型进行稀疏优化
+            if epoch % 100 == 0:
+                w_1 = copy_model_parameters(model)
+                coors = find_largest_coor(w_1, s)
+                model.load_state_dict(sparsify_model_dict(model, coors))
+                flag, total_dis = is_converge(w_0, model, theta)
+                his_loss.append(np.sqrt(loss.item()))
+                his_dis.append(total_dis.detach().cpu())
+                file.write(f"epoch:{epoch} loss:{np.sqrt(loss.item())} dis:{total_dis}\n")
+                print(f"epoch:{epoch} loss:{np.sqrt(loss.item())} dis:{total_dis}")
+                w_0 = copy_model_parameters(model)
+            epoch+=1
 
-        if epoch % 100 == 0:
-            w_1 = copy_model_parameters(model)
-            coors = find_largest_coor(w_1, s)
-            model.load_state_dict(sparsify_model_dict(model, coors))
-            flag, total_dis = is_converge(w_0, model, theta)
-            his_loss.append(np.sqrt(loss.item()))
-            his_dis.append(total_dis.detach().cpu())
-            print(f"epoch:{epoch} loss:{np.sqrt(loss.item())} dis:{total_dis}")
-            w_0 = copy_model_parameters(model)
-        epoch+=1
+            if total_dis.detach().cpu()<=theta and epoch>1000:
 
-        if total_dis.detach().cpu()<=theta and epoch>1000:
-
-            break
+                break
+    file.close()
 
 
     #测试模型
@@ -147,14 +155,18 @@ def Illustrate_train_apply(theta, s):
     true_y = np.sinc(test_x)
     plt.plot(test_x,test_y)
     plt.plot(test_x,true_y,color = 'y')
+    plt.savefig(sp_path+'/fit_fig.png')
     plt.show()
 
     # 绘制时间曲线图
     time_x = [i*100 for i in range(int(epoch/100))]
     plt.plot(time_x,his_loss[1:len(time_x)+1])
+    plt.savefig(sp_path+'/loss_fig.png')
     plt.show()
     plt.plot(time_x,his_dis[1:len(time_x)+1])
+    plt.savefig(sp_path+'/dis_fig.png')
     plt.show()
 
 # 解释性实验1训练
-Illustrate_train_apply(theta = 10e-4, s = int(0.2*650))
+for s in [1,0.5,0.4,0.3,0.25,0.2,0.15,0.1]:
+    Illustrate_train_apply(theta = 10e-4, s = s)
