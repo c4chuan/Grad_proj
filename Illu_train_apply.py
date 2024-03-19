@@ -8,10 +8,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 import torch.utils.data.dataloader
+import seaborn as sns
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-
 torch.manual_seed(seed=2024)
 np.random.seed(seed = 2024)
+
+# 初始化权重频率矩阵
+w_fre = [np.zeros((20,1),dtype=int),np.zeros((30,20),dtype=int),np.zeros((1,30),dtype=int)]
 def is_converge(w_0,model,theta):
     '''
     :param w_0: 前一时刻记录的模型参数
@@ -37,10 +40,15 @@ def copy_model_parameters(model):
     '''
     w = []
     for p in model.parameters():
+        # print(p.shape)
         if len(p.shape)>1:
             w.append(p.clone())
     return w
-
+def update_w_fre(coors):
+    for coor in coors:
+        _,num, co = coor
+        x,y,z = co
+        w_fre[x][y][z] += 1
 def find_largest_coor(w,s):
     '''
     找到模型参数中最大的S个参数的坐标
@@ -81,10 +89,30 @@ def sparsify_model_dict(model, coors):
     return model_dic
 
 
-def Illustrate_train_apply(theta, s):
+def plot_coors(save_path,coors):
+    temp_w_fre = [np.zeros((20, 1), dtype=int), np.zeros((30, 20), dtype=int), np.zeros((1, 30), dtype=int)]
+    for coor in coors:
+        _,num, co = coor
+        x,y,z = co
+        temp_w_fre[x][y][z] += 1
+    for i in range(len(w_fre)):
+        plt.title(f'Final Largest Weights Matrix {i}')
+        sns.heatmap(temp_w_fre[i],cmap='YlGnBu',linewidth=0.9,linecolor='white',
+                vmax=None,vmin=None,square=True)
+        plt.savefig(save_path+f'/w_{i}_final.png')
+        plt.show()
+def plot_w_fre(save_path):
+    for i in range(len(w_fre)):
+        plt.title(f'Largest Weights Frequency Matrix {i}')
+        sns.heatmap(w_fre[i], cmap='YlGnBu', linewidth=0.9, linecolor='white',
+                    vmax=None, vmin=None, square=True)
+        plt.savefig(save_path+f'/w_{i}_fre.png')
+        plt.show()
+def Illustrate_train_apply(theta, s,step):
     # 定义数据存储目录
     result_path = './figures/Illu/'
-    sp_path = result_path + f'theta={theta}_s={s}'
+    sp_path = result_path + f'theta={theta}_s={s}_step={step}'
+
     if not os.path.exists(result_path):
         os.mkdir(result_path)
     if not os.path.exists(sp_path):
@@ -127,10 +155,10 @@ def Illustrate_train_apply(theta, s):
             optimizer.zero_grad()
 
             # 梯度更新后对模型进行稀疏优化
-
-            if epoch % 100 == 0:
+            if epoch % step == 0:
                 w_1 = copy_model_parameters(model)
                 coors = find_largest_coor(w_1, s)
+                update_w_fre(coors)
                 model.load_state_dict(sparsify_model_dict(model, coors))
                 flag, total_dis = is_converge(w_0, model, theta)
                 his_loss.append(np.sqrt(loss.item()))
@@ -141,7 +169,8 @@ def Illustrate_train_apply(theta, s):
             epoch+=1
 
             if total_dis.detach().cpu()<=theta and epoch>1000:
-
+                plot_w_fre(save_path=sp_path)
+                plot_coors(save_path=sp_path,coors=coors)
                 break
     file.close()
 
@@ -159,7 +188,7 @@ def Illustrate_train_apply(theta, s):
     plt.show()
 
     # 绘制时间曲线图
-    time_x = [i*100 for i in range(int(epoch/100))]
+    time_x = [i*step for i in range(int(epoch/step))]
     plt.plot(time_x,his_loss[1:len(time_x)+1])
     plt.savefig(sp_path+'/loss_fig.png')
     plt.show()
@@ -168,5 +197,8 @@ def Illustrate_train_apply(theta, s):
     plt.show()
 
 # 解释性实验1训练
-for s in [1,0.5,0.4,0.3,0.25,0.2,0.15,0.1]:
-    Illustrate_train_apply(theta = 10e-4, s = s)
+# para_list = [1,0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.05]
+para_list = [0.05]
+for step in [100]:
+    for s in para_list:
+        Illustrate_train_apply(theta=10e-5, s=s, step=step)

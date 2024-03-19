@@ -9,7 +9,11 @@ import torch.utils.data.dataloader
 import data_loaders.TS_loader as TS_loader
 from matplotlib import  colors
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+torch.manual_seed(seed=2024)
+np.random.seed(seed = 2024)
 
+# 初始化权重频率矩阵
+w_fre = [np.zeros((20,2),dtype=int),np.zeros((30,20),dtype=int),np.zeros((1,30),dtype=int)]
 def get_grid_points():
     x_l, x_r = -1,1
     y_l, y_r = -1,1
