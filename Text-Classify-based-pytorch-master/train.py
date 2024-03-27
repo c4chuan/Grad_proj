@@ -46,8 +46,9 @@ def train_model(train_iter, dev_iter, model, name, device):
     scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[15, 25], gamma=0.6)
     model.train()
     best_acc = 0
+    early_stop = 0
     print('training...')
-    for epoch in range(1, epochs + 1):
+    for epoch in range(1, 100):
         model.train()
         total_loss = 0.0
         accuracy = 0
@@ -90,13 +91,17 @@ def train_model(train_iter, dev_iter, model, name, device):
             print('save model...')
             best_acc = accuracy/total_valid_num
             saveModel(model, name=name)
+        else:
+            early_stop+=1
+        if early_stop>5:
+            break
 
 def saveModel(model,name):
     torch.save(model, 'done_model/'+name+'_model.pkl')
 
 name = 'Transformer'
 model = Transformer()
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cuda:7' if torch.cuda.is_available() else 'cpu')
 print(device)
 train_iter, val_iter, test_iter = DataSet.getIter()
 
