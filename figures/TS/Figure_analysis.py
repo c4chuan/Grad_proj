@@ -37,6 +37,12 @@ def plot_s_loss_curve():
     plt.ylabel('1/test_loss')
     plt.savefig('s_performance_curve.png')
     plt.show()
+    plt.plot(s_list, acc_list)
+    plt.title('s_test_acc')
+    plt.xlabel('parameters_percentage')
+    plt.ylabel('test_acc')
+    plt.savefig('s_test_acc_curve.png')
+    plt.show()
 
 def plot_s_epoch_curve():
     theta = 0.001

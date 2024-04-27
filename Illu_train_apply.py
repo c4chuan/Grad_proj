@@ -13,8 +13,12 @@ os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 torch.manual_seed(seed=2024)
 np.random.seed(seed = 2024)
 
+num_layer_1 = 200
+num_layer_2 = 300
+cuda_device = 'cuda:7'
+
 # 初始化权重频率矩阵
-w_fre = [np.zeros((20,1),dtype=int),np.zeros((30,20),dtype=int),np.zeros((1,30),dtype=int)]
+w_fre = [np.zeros((num_layer_1,1),dtype=int),np.zeros((num_layer_2,num_layer_1),dtype=int),np.zeros((1,num_layer_2),dtype=int)]
 def is_converge(w_0,model,theta):
     '''
     :param w_0: 前一时刻记录的模型参数
@@ -58,9 +62,9 @@ def find_largest_coor(w,s):
     '''
     pq = []
     tensor_list = torch.full((s,1),-1)
-    heapq.heapify(pq)
     for i in range(s):
-        heapq.heappush(pq,(tensor_list[i],-1,(-999,-999,-999)))
+        pq.append((tensor_list[i],-1,(-999,-999,-999)))
+    heapq.heapify(pq)
     for x in range(len(w)):
         for y in range(len(w[x])):
             for z in range(len(w[x][y])):
@@ -90,7 +94,7 @@ def sparsify_model_dict(model, coors):
 
 
 def plot_coors(save_path,coors):
-    temp_w_fre = [np.zeros((20, 1), dtype=int), np.zeros((30, 20), dtype=int), np.zeros((1, 30), dtype=int)]
+    temp_w_fre = [np.zeros((num_layer_1, 1), dtype=int), np.zeros((num_layer_2, num_layer_1), dtype=int), np.zeros((1, num_layer_2), dtype=int)]
     for coor in coors:
         _,num, co = coor
         x,y,z = co
@@ -110,17 +114,17 @@ def plot_w_fre(save_path):
         plt.show()
 def Illustrate_train_apply(theta, s,step):
     # 定义数据存储目录
-    result_path = './figures/Illu/'
+    result_path = './figures/Illu_large/'
     sp_path = result_path + f'theta={theta}_s={s}_step={step}'
 
     if not os.path.exists(result_path):
         os.mkdir(result_path)
     if not os.path.exists(sp_path):
         os.mkdir(sp_path)
-    s = int(s * 650)
+    s = int(s * (num_layer_1+num_layer_2+num_layer_1*num_layer_2))
 
     # 设置device
-    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+    device = torch.device(cuda_device if torch.cuda.is_available() else 'cpu')
     print(f'Using device: {device}')
 
     # 得到训练数据
@@ -130,7 +134,7 @@ def Illustrate_train_apply(theta, s,step):
     x,y = x.to(device), y.to(device)
 
     # 设置模型
-    model = IL_model.Net_sinc(1,20,30,1)
+    model = IL_model.Net_sinc(1,num_layer_1,num_layer_2,1)
     model.to(device)
     model.train()
 
@@ -197,8 +201,8 @@ def Illustrate_train_apply(theta, s,step):
     plt.show()
 
 # 解释性实验1训练
-# para_list = [1,0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.05]
-para_list = [0.05]
-for step in [100]:
+para_list = [1,0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0.05]
+# para_list = [0.05]
+for step in [200]:
     for s in para_list:
-        Illustrate_train_apply(theta=10e-5, s=s, step=step)
+        Illustrate_train_apply(theta=0.05, s=s, step=step)

@@ -3,18 +3,28 @@ from torch import nn
 
 class Net_sinc(nn.Module):
 
-    def  __init__(self,n_input,n_hidden_1,n_hidden_2,n_out):
+    def  __init__(self,n_input,n_hidden_1,n_hidden_2,n_out,layer_num):
         super().__init__()
-        self.layer1 = nn.Linear(n_input,n_hidden_1)
-        self.layer2 = nn.Linear(n_hidden_1,n_hidden_2)
-        self.layer3 = nn.Linear(n_hidden_2,n_out)
+        self.layer_num = layer_num
+        if layer_num == 3:
+            self.layer1 = nn.Linear(n_input,n_hidden_1)
+            self.layer2 = nn.Linear(n_hidden_1,n_hidden_2)
+            self.layer3 = nn.Linear(n_hidden_2,n_out)
+        elif layer_num == 2:
+            self.layer1 = nn.Linear(n_input, n_hidden_1)
+            self.layer2 = nn.Linear(n_hidden_1, n_out)
 
     def forward(self,x):
-        x = self.layer1(x)
-        x = torch.sigmoid(x)
-        x = self.layer2(x)
-        x = torch.sigmoid(x)
-        return self.layer3(x)
+        if self.layer_num == 3:
+            x = self.layer1(x)
+            x = torch.sigmoid(x)
+            x = self.layer2(x)
+            x = torch.sigmoid(x)
+            return self.layer3(x)
+        elif self.layer_num ==2:
+            x = self.layer1(x)
+            x = torch.sigmoid(x)
+            return self.layer2(x)
 
 class Net_two_spiral(nn.Module):
 
