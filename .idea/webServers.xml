@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="2e80c2e0-9746-431e-878f-875e810d6311" name="A6000">
+        <fileTransfer rootFolder="/home/wangzhenchuan" accessType="SFTP" host="222.212.86.164" port="10006" sshConfigId="660dec3b-8b47-4a8e-93ac-6684c90933b4" sshConfig="wangzhenchuan@222.212.86.164:10006 key" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -3,38 +3,24 @@
   <component name="PublishConfigData" autoUpload="Always" serverName="wangzhenchuan@222.212.86.164:10006 key (2)" remoteFilesAllowedToDisappearOnAutoupload="false" confirmBeforeUploading="false">
     <option name="confirmBeforeUploading" value="false" />
     <serverData>
-      <paths name="caojieming@222.212.86.164:10006 key">
+      <paths name="A6000">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/data/Grad_proj" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
       <paths name="wangzhenchuan@222.212.86.164:10006 key">
         <serverdata>
           <mappings>
-            <mapping deploy="/home/wangzhenchuan/data/Grad_proj" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/data/wangzhenchuan/Grad_proj" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>
       <paths name="wangzhenchuan@222.212.86.164:10006 key (2)">
         <serverdata>
           <mappings>
-            <mapping deploy="/home/wangzhenchuan/data/Grad_proj" local="$PROJECT_DIR$" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="yjfeng@172.20.1.90:22 password">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/home/yjfeng/projects/ragas-test" local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="yjfeng@172.20.1.90:22 password (2)">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/home/yjfeng/projects/ragas-test" local="$PROJECT_DIR$" />
+            <mapping deploy="/data/wangzhenchuan/Grad_proj" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>

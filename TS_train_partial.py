@@ -170,7 +170,11 @@ def TS_train(theta, s, step,seed):
     torch.manual_seed(seed=seed)
     np.random.seed(seed=seed)
     # 设置device
+<<<<<<< HEAD
     device = torch.device('cuda:7' if torch.cuda.is_available() else 'cpu')
+=======
+    device = torch.device(cuda_device if torch.cuda.is_available() else 'cpu')
+>>>>>>> fdbaf9ed0277877520a5ab8128627465f6310a2a
     print(f'Using device: {device}')
     print('training....')
 
@@ -201,7 +205,6 @@ def TS_train(theta, s, step,seed):
         os.mkdir(result_path)
     if not os.path.exists(sp_path):
         os.mkdir(sp_path)
-    s = int(s * 700)
 
     # 记录模型历史loss,acc和前一时刻模型参数的距离
     his_loss = []
@@ -272,6 +275,7 @@ def TS_train(theta, s, step,seed):
                     total_time += t
                 av_time = total_time / len(times)
                 file.write(f'best_acc:{best_acc} average_time:{av_time}')
+                print(f'best_acc:{best_acc} average_time:{av_time}')
                 break
 
         x, _, xx, yy = get_grid_points()
@@ -299,10 +303,12 @@ def TS_train(theta, s, step,seed):
 
     # 绘制时间曲线图
     time_x = [i * step for i in range(int(epoch / step)-1)]
+
     plt.plot(time_x, his_loss[1:len(time_x) + 1])
     plt.savefig(sp_path + '/loss_fig.png')
     plt.show()
-    plt.plot(time_x, his_dis[1:len(time_x) + 1])
+    his_dis = [i.cpu().detach().numpy() for i in his_dis[1:len(time_x) + 1]]
+    plt.plot(time_x, his_dis)
     plt.savefig(sp_path + '/dis_fig.png')
     plt.show()
     plt.plot(time_x, his_acc[1:len(time_x) + 1])
