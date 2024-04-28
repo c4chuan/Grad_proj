@@ -12,14 +12,12 @@ import torch.utils.data.dataloader
 import torch.nn.utils.prune as pr
 import seaborn as sns
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-torch.manual_seed(seed=2024)
-np.random.seed(seed = 2024)
 
 train_data_num = 1000
 valid_data_num = 3000
 steps = [100]
-# para_list = [0,0.05,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,0.95]
-para_list = [0.6]
+para_list = [0,0.05,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,0.95]
+# para_list = [0.6]
 theta = 10e-2
 num_layer_1 = 200
 num_layer_2 = 300
@@ -132,9 +130,11 @@ def plot_w_fre(save_path):
                     vmax=None, vmin=None, square=True)
         plt.savefig(save_path+f'/w_{i}_fre.png')
         plt.show()
-def Illustrate_train_apply(theta, s,step):
+def Illustrate_train_apply(theta, s,step,seed):
+    torch.manual_seed(seed=seed)
+    np.random.seed(seed=seed)
     # 定义数据存储目录
-    result_path = f'./figures/Illu_large_{method}_2/'
+    result_path = f'./figures/Illu_large_{method}_{seed}/'
     sp_path = result_path + f'theta={theta}_s={s}_step={step}'
 
     if not os.path.exists(result_path):
@@ -252,7 +252,7 @@ def Illustrate_train_apply(theta, s,step):
     plt.savefig(sp_path+'/dis_fig.png')
     plt.show()
 
-
-for step in steps:
-    for s in para_list:
-        Illustrate_train_apply(theta=theta, s=s, step=step)
+for seed in [3,4,5,6]:
+    for step in steps:
+        for s in para_list:
+            Illustrate_train_apply(theta=theta, s=s, step=step,seed=seed)

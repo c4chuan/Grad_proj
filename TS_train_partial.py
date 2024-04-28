@@ -13,15 +13,13 @@ from matplotlib import  colors
 import heapq
 import seaborn as sns
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-torch.manual_seed(seed=2024)
-np.random.seed(seed = 2024)
 import torch.nn.utils.prune as pr
 
 sample_num = 2000
 valid_data_num = 3000
-steps = [100]
-# para_list = [0,0.05,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,0.95]
-para_list = [0.8]
+steps = [1]
+para_list = [0,0.05,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,0.95]
+# para_list = [0.8]
 theta = 10e-2
 num_layer_1 = 200
 num_layer_2 = 300
@@ -168,9 +166,11 @@ def plot_w_fre(save_path):
                     vmax=None, vmin=None, square=True)
         plt.savefig(save_path+f'/w_{i}_fre.png')
         plt.show()
-def TS_train(theta, s, step):
+def TS_train(theta, s, step,seed):
+    torch.manual_seed(seed=seed)
+    np.random.seed(seed=seed)
     # 设置device
-    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+    device = torch.device('cuda:7' if torch.cuda.is_available() else 'cpu')
     print(f'Using device: {device}')
     print('training....')
 
@@ -194,7 +194,7 @@ def TS_train(theta, s, step):
     w_0 = copy_model_parameters(model)
 
     # 定义数据存储目录
-    result_path = f'./figures/TS_{method}/'
+    result_path = f'./figures/TS_{method}_{seed}/'
     sp_path = result_path + f'theta={theta}_s={s}_step={step}'
 
     if not os.path.exists(result_path):
@@ -251,7 +251,7 @@ def TS_train(theta, s, step):
             epoch_accuracy = total_acc_num / len(train_dataloader.dataset)
             his_loss.append(epoch_loss)
             his_acc.append(epoch_accuracy)
-            his_dis.append(total_dis)
+            his_dis.append(total_dis.cpu().detach().numpy())
             file.write(f'Epoch:{epoch},Train_loss:{epoch_loss},Train_acc:{epoch_accuracy},Dis:{total_dis}\n')
             print(f'Epoch:{epoch},Train_loss:{epoch_loss},Train_acc:{epoch_accuracy},Dis:{total_dis}')
 
@@ -309,7 +309,7 @@ def TS_train(theta, s, step):
     plt.savefig(sp_path + '/acc_fig.png')
     plt.show()
 
-
-for s in para_list:
-    for step in steps:
-        TS_train(theta=theta, s = s, step=step)
+for seed in [3,4,5,6]:
+    for s in para_list:
+        for step in steps:
+            TS_train(theta=theta, s = s, step=step,seed=seed)
