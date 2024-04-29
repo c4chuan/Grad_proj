@@ -25,7 +25,7 @@ num_layer_1 = 200
 num_layer_2 = 300
 layer_num = 3
 cuda_device = 'cuda:7'
-method = 'partial' # 'partial'/'global'
+method = 'global' # 'partial'/'global'
 partial_mask = [0,1,0]
 early_stop = 5
 count = 0
@@ -40,7 +40,7 @@ def recover_model(model):
         modules = [(model.layer1, 'weight'), (model.layer2, 'weight')]
     if method == 'global':
         for module in modules:
-            pr.remove(module,'weight')
+            pr.remove(module[0],'weight')
     elif method == 'partial':
         for i in range(len(partial_mask)):
             if partial_mask[i]:
@@ -170,12 +170,9 @@ def TS_train(theta, s, step,seed):
     torch.manual_seed(seed=seed)
     np.random.seed(seed=seed)
     # 设置device
-<<<<<<< HEAD
-    device = torch.device('cuda:7' if torch.cuda.is_available() else 'cpu')
-=======
     device = torch.device(cuda_device if torch.cuda.is_available() else 'cpu')
->>>>>>> fdbaf9ed0277877520a5ab8128627465f6310a2a
     print(f'Using device: {device}')
+    print(f'Method为{method}')
     print('training....')
 
     #生成双螺旋数据
@@ -307,8 +304,7 @@ def TS_train(theta, s, step,seed):
     plt.plot(time_x, his_loss[1:len(time_x) + 1])
     plt.savefig(sp_path + '/loss_fig.png')
     plt.show()
-    his_dis = [i.cpu().detach().numpy() for i in his_dis[1:len(time_x) + 1]]
-    plt.plot(time_x, his_dis)
+    plt.plot(time_x, his_dis[1:len(time_x) + 1])
     plt.savefig(sp_path + '/dis_fig.png')
     plt.show()
     plt.plot(time_x, his_acc[1:len(time_x) + 1])

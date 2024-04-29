@@ -23,7 +23,7 @@ num_layer_1 = 200
 num_layer_2 = 300
 layer_num = 3
 cuda_device = 'cuda:7'
-method = 'partial' # 'partial'/'global'
+method = 'global' # 'partial'/'global'
 partial_mask = [0,1,0]
 early_stop = 5
 count = 0
@@ -39,7 +39,7 @@ def recover_model(model):
         modules = [(model.layer1, 'weight'), (model.layer2, 'weight')]
     if method == 'global':
         for module in modules:
-            pr.remove(module,'weight')
+            pr.remove(module[0],'weight')
     elif method == 'partial':
         for i in range(len(partial_mask)):
             if partial_mask[i]:
@@ -252,7 +252,7 @@ def Illustrate_train_apply(theta, s,step,seed):
     plt.savefig(sp_path+'/dis_fig.png')
     plt.show()
 
-for seed in [3,4,5,6]:
+for seed in [4]:
     for step in steps:
         for s in para_list:
             Illustrate_train_apply(theta=theta, s=s, step=step,seed=seed)
