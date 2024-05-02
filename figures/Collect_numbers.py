@@ -3,7 +3,7 @@ import re
 
 type = 'Illu_large' # 'Illu_large' or 'TS'
 method = 'partial' # 'global' or 'partial'
-id_list = [2,3,4,5,6]
+id_list = [2,3,4]
 theta = 0.1
 if type == 'Illu_large':
     step = 100
@@ -96,7 +96,7 @@ def collect_from_result(method, id_list):
         f_train_list[j] = f_train_list[j]/len(id_list)
         f_test_list[j] = f_test_list[j]/len(id_list)
     print(f_train_list)
-    print(f_train_list)
+    print(f_test_list)
 
 
 
