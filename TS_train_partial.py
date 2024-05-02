@@ -24,8 +24,8 @@ theta = 10e-2
 num_layer_1 = 200
 num_layer_2 = 300
 layer_num = 3
-cuda_device = 'cuda:7'
-method = 'global' # 'partial'/'global'
+cuda_device = 'cuda:0'
+method = 'partial' # 'partial'/'global'
 partial_mask = [0,1,0]
 early_stop = 5
 count = 0
@@ -311,7 +311,7 @@ def TS_train(theta, s, step,seed):
     plt.savefig(sp_path + '/acc_fig.png')
     plt.show()
 
-for seed in [3,4,5,6]:
+for seed in [3,4,5,6,7,8,9,10,11]:
     for s in para_list:
         for step in steps:
             TS_train(theta=theta, s = s, step=step,seed=seed)

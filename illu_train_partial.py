@@ -16,14 +16,13 @@ os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 train_data_num = 1000
 valid_data_num = 3000
 steps = [100]
-para_list = [0,0.05,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,0.95]
-# para_list = [0.6]
+para_list = [0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,0.95]
 theta = 10e-2
 num_layer_1 = 200
 num_layer_2 = 300
 layer_num = 3
-cuda_device = 'cuda:7'
-method = 'global' # 'partial'/'global'
+cuda_device = 'cuda:0'
+method = 'partial' # 'partial'/'global'
 partial_mask = [0,1,0]
 early_stop = 5
 count = 0
@@ -252,7 +251,7 @@ def Illustrate_train_apply(theta, s,step,seed):
     plt.savefig(sp_path+'/dis_fig.png')
     plt.show()
 
-for seed in [4]:
+for seed in [3,4,5,6]:
     for step in steps:
         for s in para_list:
             Illustrate_train_apply(theta=theta, s=s, step=step,seed=seed)
