@@ -1,9 +1,9 @@
 import os
 import re
 
-type = 'Illu_large' # 'Illu_large' or 'TS'
+type = 'TS' # 'Illu_large' or 'TS'
 method = 'partial' # 'global' or 'partial'
-id_list = [2,3,4]
+id_list = [2,3,4,5,6,7]
 theta = 0.1
 if type == 'Illu_large':
     step = 100

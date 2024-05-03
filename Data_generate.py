@@ -36,6 +36,7 @@ def data_two_spiral_generate(totalnum = 2000):
         # Y 里存储的是样本的类别，分别为 [0, 1, 2]
         for ix in range(N * c, N * (c + 1)):
             X[ix] = t[index] * torch.FloatTensor((math.sin(inner_var[index]), math.cos(inner_var[index])))
+            # x[0] = 0/1000 * sin
             Y[ix] = c
             index += 1
 
@@ -47,6 +48,8 @@ def data_two_spiral_generate(totalnum = 2000):
     plt.scatter(X.cpu()[1000:][:,0],X.cpu()[1000:][:,1],color='g',marker='.')
     plt.show()
     return X,Y
+
+data_two_spiral_generate(1000)
 
 
 
