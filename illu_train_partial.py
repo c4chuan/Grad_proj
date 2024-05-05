@@ -182,6 +182,7 @@ def Illustrate_train_apply(theta, s,step,seed):
             if epoch % step == 0:
                 st_time = time.time()
                 w_1 = copy_model_parameters(model)
+
                 prune_model(model,method,s)
                 coors = find_largest_coor(model)
                 update_w_fre(coors)
