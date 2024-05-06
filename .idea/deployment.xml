@@ -10,6 +10,13 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="caojieming@222.212.86.164:10006 key">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="wangzhenchuan@222.212.86.164:10006 key">
         <serverdata>
           <mappings>
@@ -21,6 +28,34 @@
         <serverdata>
           <mappings>
             <mapping deploy="/data/wangzhenchuan/Grad_proj" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="wangzhenchuan@222.212.86.164:10006 key (3)">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="wangzhenchuan@222.212.86.164:10006 key (4)">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="yjfeng@172.20.1.90:22 password">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="yjfeng@172.20.1.90:22 password (2)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/yjfeng/projects/Grad_proj" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

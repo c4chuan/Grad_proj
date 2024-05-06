@@ -13,7 +13,7 @@ class Transformer(nn.Module):
                  vocab_size = len(DataSet.getTEXT().vocab),  # 词典的大小
                  seq_len = 256,
                  n_class = class_number,  # 分类的类型
-                 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu'),
+                 device = torch.device('cuda:2' if torch.cuda.is_available() else 'cpu'),
                  embed_dim=256,  # embedding的维度
                  dim_model=256,
                  dropout=0.2,

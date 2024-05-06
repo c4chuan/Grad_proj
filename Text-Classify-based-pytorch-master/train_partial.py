@@ -62,8 +62,10 @@ def get_modules(model):
         modules.append(encoder.attention.fc)
         modules.append(encoder.feed_forward.fc1)
         modules.append(encoder.feed_forward.fc2)
+    modules.append(model.fc1)
     return modules
-def prune_model(prune_modules,s,method):
+def prune_model(model,s,method):
+    prune_modules = get_modules(model)
     if method == 'partial':
         for m in prune_modules:
             pr.l1_unstructured(m,'weight',amount=s)
@@ -71,11 +73,12 @@ def prune_model(prune_modules,s,method):
         prune_modules = [(m,'weight') for m in prune_modules]
         pr.global_unstructured(prune_modules, pruning_method=pr.L1Unstructured, amount =s)
 
-def recover_model(prune_modules):
+def recover_model(model):
+    prune_modules = get_modules(model)
     for m in prune_modules:
         pr.remove(m,'weight')
 
-def train_model(train_iter, dev_iter, model, name, device, step,s,theta,pr_modules):
+def train_model(train_iter, dev_iter, model, name, device, step,s,theta):
     model = model.to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
     scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[15, 25], gamma=0.6)
@@ -119,8 +122,8 @@ def train_model(train_iter, dev_iter, model, name, device, step,s,theta,pr_modul
                 f'loss: {loss.item():.3f}')
 
             # 对模型进行稀疏优化
-            prune_model(pr_modules,s,method)
-            recover_model(pr_modules)
+            prune_model(model,s,method)
+            recover_model(model)
             his_train_acc.append(accuracy/total_train_num)
 
             file.write('>>> Epoch_{}, Train loss is {}, Train Accuracy:{}\n'.format(epoch,total_loss/total_train_num, accuracy/total_train_num))
@@ -184,12 +187,12 @@ step = 10
 theta = 10e-2
 name = 'Transformer'
 model = Transformer()
-device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cuda:2' if torch.cuda.is_available() else 'cpu')
 train_iter, val_iter, test_iter = DataSet.getIter()
 print_model(model)
-pr_modules = get_modules(model)
+
 
 if __name__ == '__main__':
-    for s in [10]:
-        train_model(train_iter, val_iter, model, name, device,step,s,theta,pr_modules=pr_modules)
+    for s in [0.9]:
+        train_model(train_iter, val_iter, model, name, device,step,s,theta)
     test_model(test_iter, name, device)
