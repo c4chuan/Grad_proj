@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 test_acc = []
 s_list = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8]
 
+
 for s in s_list:
     result_path = f'./s={s}_theta=0.1/results.txt'
     with open(result_path,'r') as file:

@@ -193,6 +193,6 @@ print_model(model)
 
 
 if __name__ == '__main__':
-    for s in [0.9]:
+    for s in [0.99]:
         train_model(train_iter, val_iter, model, name, device,step,s,theta)
     test_model(test_iter, name, device)
