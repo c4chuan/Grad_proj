@@ -182,7 +182,7 @@ def train_model(train_iter, dev_iter, model, name, device, step,s,theta):
 def saveModel(model,name):
     torch.save(model, 'done_model/'+name+'_model.pkl')
 
-method = 'partial' # global / partial
+method = 'global' # global / partial
 step = 10
 theta = 10e-2
 name = 'Transformer'
