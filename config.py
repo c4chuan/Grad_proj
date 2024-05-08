@@ -18,7 +18,7 @@ pretrained_gpt_path = "GPT-SoVITS/pretrained_models/s1bert25hz-2kh-longer-epoch=
 exp_root = "logs"
 python_exec = sys.executable or "python"
 if torch.cuda.is_available():
-    infer_device = "cuda"
+    infer_device = "cuda:2"
 else:
     infer_device = "cpu"
 

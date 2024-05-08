@@ -1,0 +1,25 @@
+>>> Epoch_0, Train loss is 0.008430422065961776, Train Accuracy:0.47469963820055977
+>>> Epoch_0, Valid loss:0.005434249270336365, Valid Accuracy:0.30034106412005457 
+>>> Epoch_1, Train loss is 0.004918965169558127, Train Accuracy:0.5591678612874599
+>>> Epoch_1, Valid loss:0.005433808143109612, Valid Accuracy:0.30034106412005457 
+>>> Epoch_2, Train loss is 0.004484102164012872, Train Accuracy:0.5720441668373267
+>>> Epoch_2, Valid loss:0.005433115684319323, Valid Accuracy:0.30034106412005457 
+>>> Epoch_3, Train loss is 0.003965067326070441, Train Accuracy:0.5848522083418664
+>>> Epoch_3, Valid loss:0.0054327680989794975, Valid Accuracy:0.30034106412005457 
+>>> Epoch_4, Train loss is 0.003837718770820392, Train Accuracy:0.5936412041777596
+>>> Epoch_4, Valid loss:0.005432399265762891, Valid Accuracy:0.30034106412005457 
+>>> Epoch_5, Train loss is 0.003709400531329981, Train Accuracy:0.5984708853846679
+>>> Epoch_5, Valid loss:0.005431966505954893, Valid Accuracy:0.5002046384720328 
+>>> Epoch_6, Train loss is 0.0036045673158162446, Train Accuracy:0.6070038910505836
+>>> Epoch_6, Valid loss:0.005431653914965516, Valid Accuracy:0.5002046384720328 
+>>> Epoch_7, Train loss is 0.003544504447873277, Train Accuracy:0.6116202471158441
+>>> Epoch_7, Valid loss:0.005431000520392622, Valid Accuracy:0.5002046384720328 
+>>> Epoch_8, Train loss is 0.0034753144244112914, Train Accuracy:0.620033790702437
+>>> Epoch_8, Valid loss:0.005430403611995025, Valid Accuracy:0.5002046384720328 
+>>> Epoch_9, Train loss is 0.0034536896444512795, Train Accuracy:0.6246501467676975
+>>> Epoch_9, Valid loss:0.0054292782063698865, Valid Accuracy:0.5002046384720328 
+>>> Epoch_10, Train loss is 0.003422896780876733, Train Accuracy:0.6275855007167724
+>>> Epoch_10, Valid loss:0.005428347284276684, Valid Accuracy:0.5002046384720328 
+>>> Epoch_11, Train loss is 0.0033873560613915, Train Accuracy:0.6323810499010172
+>>> Epoch_11, Valid loss:0.005416973669076844, Valid Accuracy:0.39447476125511594 
+best_acc=0.5002046384720328

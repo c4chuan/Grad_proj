@@ -1,0 +1,23 @@
+>>> Epoch_0, Train loss is 0.008076849742768706, Train Accuracy:0.4901102464332036
+>>> Epoch_0, Valid loss:0.00445246799743517, Valid Accuracy:0.540450204638472 
+>>> Epoch_1, Train loss is 0.003854135156524117, Train Accuracy:0.5850484674721824
+>>> Epoch_1, Valid loss:0.004470716699408964, Valid Accuracy:0.6154160982264666 
+>>> Epoch_2, Train loss is 0.003514391805675788, Train Accuracy:0.6200081916854393
+>>> Epoch_2, Valid loss:0.0035701489058230455, Valid Accuracy:0.6352319236016372 
+>>> Epoch_3, Train loss is 0.003355095760982121, Train Accuracy:0.6367926138302956
+>>> Epoch_3, Valid loss:0.0036654973684684317, Valid Accuracy:0.639324693042292 
+>>> Epoch_4, Train loss is 0.003233445509866412, Train Accuracy:0.6525104102669124
+>>> Epoch_4, Valid loss:0.0033771542418051873, Valid Accuracy:0.6545702592087312 
+>>> Epoch_5, Train loss is 0.0031326984040272814, Train Accuracy:0.6620161785787426
+>>> Epoch_5, Valid loss:0.0032715698076465445, Valid Accuracy:0.6512278308321965 
+>>> Epoch_6, Train loss is 0.002995294195994215, Train Accuracy:0.6776486449587003
+>>> Epoch_6, Valid loss:0.0032898799885994414, Valid Accuracy:0.6431446111869031 
+>>> Epoch_7, Train loss is 0.002907165067233651, Train Accuracy:0.6875127995084989
+>>> Epoch_7, Valid loss:0.003551708932300219, Valid Accuracy:0.6090381991814461 
+>>> Epoch_8, Train loss is 0.002793932499267256, Train Accuracy:0.7013277356816164
+>>> Epoch_8, Valid loss:0.003497042491686458, Valid Accuracy:0.6253069577080491 
+>>> Epoch_9, Train loss is 0.0026957665844918664, Train Accuracy:0.7120622568093385
+>>> Epoch_9, Valid loss:0.0034910545566234877, Valid Accuracy:0.6323328785811733 
+>>> Epoch_10, Train loss is 0.002604464695485218, Train Accuracy:0.722446924704758
+>>> Epoch_10, Valid loss:0.0035055370724380096, Valid Accuracy:0.6321282401091405 
+best_acc=0.6545702592087312

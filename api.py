@@ -487,7 +487,6 @@ def handle_control(command):
         os.execl(g_config.python_exec, g_config.python_exec, *sys.argv)
     elif command == "exit":
         os.kill(os.getpid(), signal.SIGTERM)
-        exit(0)
 
 
 def handle_change(path, text, language):
