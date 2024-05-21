@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="workspace.featurize.cn" id="7aaa3e63-0d37-45e0-83da-4f0cad04ddea" port="50952" nameFormat="DESCRIPTIVE" username="featurize" useOpenSSHConfig="true" />
+    </configs>
+  </component>
+</project>

@@ -3,9 +3,16 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="2e80c2e0-9746-431e-878f-875e810d6311" name="A6000">
-        <fileTransfer rootFolder="/home/wangzhenchuan" accessType="SFTP" host="222.212.86.164" port="10006" sshConfigId="660dec3b-8b47-4a8e-93ac-6684c90933b4" sshConfig="wangzhenchuan@222.212.86.164:10006 key" keyPair="true">
+        <fileTransfer rootFolder="/home/wangzhenchuan" accessType="SFTP" host="222.212.86.164" port="10006" sshConfigId="1e252faf-10bc-4273-b4ab-a676d143c9e5" sshConfig="wangzhenchuan@222.212.86.164:10006 key" keyPair="true">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="8c59ac71-242d-4fd5-9ecb-042879498427" name="featurize">
+        <fileTransfer accessType="SFTP" host="workspace.featurize.cn" port="50952" sshConfigId="7aaa3e63-0d37-45e0-83da-4f0cad04ddea" sshConfig="featurize@workspace.featurize.cn:50952 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>

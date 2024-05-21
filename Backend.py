@@ -1,11 +1,11 @@
-from gradio_client import Client
+
 from flask import Flask, request, jsonify,send_file
 import os
 
 app = Flask(__name__)
 @app.route('/tts_start', methods=['GET'])
 def process_data():
-	os.system('sh backend_start.sh')
+	print("oss")
 	return '成功'
 
 if __name__ == '__main__':
