@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="wangzhenchuan@222.212.86.164:10006 key (2)" remoteFilesAllowedToDisappearOnAutoupload="false" confirmBeforeUploading="false">
+  <component name="PublishConfigData" autoUpload="Always" serverName="wangzhenchuan@222.212.86.164:10006 key (3)" remoteFilesAllowedToDisappearOnAutoupload="false" confirmBeforeUploading="false">
     <option name="confirmBeforeUploading" value="false" />
     <serverData>
       <paths name="A6000">
@@ -41,7 +41,7 @@
       <paths name="wangzhenchuan@222.212.86.164:10006 key (3)">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/data/wangzhenchuan/Grad_proj" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

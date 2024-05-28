@@ -34,35 +34,35 @@ def splitness(words):
 word_ex_dic = {}
 ex_fre_dic = {}
 for file_name in file_names:
-
-
     print(file_name)
     file_path = base_dir+f'/{file_name}'
     with open(file_path,'r') as file:
         lines = file.readlines()
         for line in lines:
-            word = re.findall('【.*?】',line)[0][1:-1]
-            if '。' not in line:
-                explain = re.findall("(?<=[指喻即称一]).*$", line)
-            else:
-                explain = re.findall("[指喻即称].*?。",line)
-                explain = [i[1:-1] for i in explain]
-            explain = [process(per_word) for per_word in explain]
-            explain = splitness(explain)
-            # 加入词典中
-            word_ex_dic[word] = explain
-            for ex in explain:
-                if ex not in ex_fre_dic:
-                    ex_fre_dic[ex] = 1
+            if '【' in line and '】' in line:
+                word = re.findall('【.*?】',line)[0][1:-1]
+                if '。' not in line:
+                    explain = re.findall("(?<=[指喻即称一]).*$", line)
                 else:
-                    ex_fre_dic[ex] += 1
+                    explain = re.findall("[指喻即称].*?。",line)
+                    explain = [i[1:-1] for i in explain]
+                explain = [process(per_word) for per_word in explain]
+                explain = splitness(explain)
+                # 加入词典中
+                word_ex_dic[word] = explain
+                for ex in explain:
+                    if ex not in ex_fre_dic:
+                        ex_fre_dic[ex] = 1
+                    else:
+                        ex_fre_dic[ex] += 1
 
 del_lis = []
 for k,v in ex_fre_dic.items():
-    print(v)
+    # print(v)
     if v<=2:
         del_lis.append(k)
 for k in del_lis:
     ex_fre_dic.pop(k)
 
 print(ex_fre_dic.keys())
+print(len(ex_fre_dic.keys()))
